@@ -233,7 +233,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &753739292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,7 +241,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 753739291}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15ee5d07e1c796d4f8c6acf5e4d7d873, type: 3}
   m_Name: 
@@ -255,6 +255,13 @@ MonoBehaviour:
     octaves: 6
     persistance: 0.6
     lacunarity: 1.7
+    offset: {x: 0, y: 0}
+  featureNoiseSettings:
+    seed: 0
+    scale: 20
+    octaves: 4
+    persistance: 0.6
+    lacunarity: 1.5
     offset: {x: 0, y: 0}
   terrainMaterial: {fileID: 2100000, guid: 5d22c0e18f0e4d74a91f24064fff0479, type: 2}
   plane: {fileID: 1810904502}
@@ -379,6 +386,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5216806651480189123, guid: 394acbeea5770744e837ff34c45c260a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7290007952580806259, guid: 394acbeea5770744e837ff34c45c260a, type: 3}
+      propertyPath: speed
+      value: 3.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8260162683590524394, guid: 394acbeea5770744e837ff34c45c260a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -440,7 +455,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1385530051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,7 +473,14 @@ MonoBehaviour:
   renderDistance: 4
   terrainMaterial: {fileID: 2100000, guid: 0a3a4a3e95543fb45af5a059b544f67b, type: 2}
   player: {fileID: 1578990663}
-  noiseSettings:
+  baseNoiseSettings:
+    seed: 0
+    scale: 50
+    octaves: 6
+    persistance: 0.6
+    lacunarity: 2
+    offset: {x: 0, y: 0}
+  featureNoiseSettings:
     seed: 0
     scale: 50
     octaves: 6

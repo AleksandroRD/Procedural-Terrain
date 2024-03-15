@@ -22,7 +22,9 @@ public class WorldGenerator : MonoBehaviour
     private Dictionary<Vector2,WorldChunk> generatedChunks = new Dictionary<Vector2, WorldChunk>();
     private List<WorldChunk> loadedChunks = new List<WorldChunk>();
     [SerializeField]
-    private NoiseSettings noiseSettings;
+    private NoiseSettings baseNoiseSettings;
+    [SerializeField]
+    private NoiseSettings featureNoiseSettings;
     void Start(){
         UpdateChuncks();
     }
@@ -60,7 +62,7 @@ public class WorldGenerator : MonoBehaviour
                         generatedChunks[pos].Load();
                     }
                 }else{
-                    generatedChunks[pos] = new (chunkSize,pos,transform,noiseSettings,heightMultiplyer,terrainMaterial);
+                    generatedChunks[pos] = new (chunkSize,pos,transform,baseNoiseSettings,featureNoiseSettings,heightMultiplyer,terrainMaterial);
                     loadedChunks.Add(generatedChunks[pos]);
                     generatedChunks[pos].Load();
                 }

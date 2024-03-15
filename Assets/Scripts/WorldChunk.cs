@@ -12,14 +12,14 @@ public class WorldChunk
 
 	Vector2 sampleCentre;
 
-    NoiseSettings noiseSettings;
+    NoiseSettings baseNoiseSettings;
 
     float heightMultiplyer;
-    float[,] heightMap;
+    HeightMap heightMap;
 
-    public WorldChunk(int size,Vector2Int coordinates,Transform parent,NoiseSettings noiseSettings,float heightMultiplyer,Material material){
+    public WorldChunk(int size,Vector2Int coordinates,Transform parent,NoiseSettings baseNoiseSettings,NoiseSettings featureNoiseSettings,float heightMultiplyer,Material material){
         this.coordinates = coordinates;
-        this.noiseSettings = noiseSettings;
+        this.baseNoiseSettings = baseNoiseSettings;
 
         meshObject = new GameObject("Terrain Chunk");
 		meshRenderer = meshObject.AddComponent<MeshRenderer>();
@@ -33,8 +33,8 @@ public class WorldChunk
 
         sampleCentre = new(coordinates.x * size, coordinates.y * size);
 
-        heightMap = Noise.GeneratePerlinNoise(size+1, noiseSettings, sampleCentre);
-        terrainMesh = MeshGenerator.GenerateMeshData(heightMap,heightMultiplyer).CreateMesh();
+        heightMap = HeightMapGenerator.GenerateHeightMap(size+1,baseNoiseSettings,featureNoiseSettings,heightMultiplyer,sampleCentre);
+        terrainMesh = MeshGenerator.GenerateMeshData(heightMap.values).CreateMesh();
         meshCollider.sharedMesh = terrainMesh;
         meshFilter.sharedMesh = terrainMesh;
     }

@@ -13,6 +13,8 @@ public class TerrainDemo : MonoBehaviour
     private Vector2 offSet;
     [SerializeField]
     private NoiseSettings noiseSettings;
+    [SerializeField]
+    private NoiseSettings featureNoiseSettings;
     
     [Header("Material")]
     [SerializeField]
@@ -26,13 +28,10 @@ public class TerrainDemo : MonoBehaviour
     }
     
     public void GenerateSimpleTerrain(){
-        if(worldChunk != null || transform.childCount != 0){
-            DestroyImmediate(transform.GetChild(0).gameObject);
-        }
-        worldChunk = new WorldChunk(size,new Vector2Int(0,0),transform,noiseSettings,heightMultiplyer,terrainMaterial);
+        worldChunk = new WorldChunk(size,new Vector2Int(0,0),transform,noiseSettings,featureNoiseSettings,heightMultiplyer,terrainMaterial);
         worldChunk.Load();
 
-        plane.GetComponent<MeshRenderer>().sharedMaterial.mainTexture = TextureGenerator.GenerateNoiseTexture(Noise.GeneratePerlinNoise(size,noiseSettings,offSet));
+        plane.GetComponent<MeshRenderer>().sharedMaterial.mainTexture = TextureGenerator.GenerateNoiseTexture(Noise.GeneratePerlinNoise(size,featureNoiseSettings,offSet));
     }
 
     void OnValidate(){
