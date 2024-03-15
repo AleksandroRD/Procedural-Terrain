@@ -25,6 +25,8 @@ public class WorldGenerator : MonoBehaviour
     private NoiseSettings baseNoiseSettings;
     [SerializeField]
     private NoiseSettings featureNoiseSettings;
+    [SerializeField]
+    private AnimationCurve featureNoiseInfluence;
     void Start(){
         UpdateChuncks();
     }
@@ -62,7 +64,7 @@ public class WorldGenerator : MonoBehaviour
                         generatedChunks[pos].Load();
                     }
                 }else{
-                    generatedChunks[pos] = new (chunkSize,pos,transform,baseNoiseSettings,featureNoiseSettings,heightMultiplyer,terrainMaterial);
+                    generatedChunks[pos] = new (chunkSize,pos,transform,baseNoiseSettings,featureNoiseSettings,featureNoiseInfluence,heightMultiplyer,terrainMaterial);
                     loadedChunks.Add(generatedChunks[pos]);
                     generatedChunks[pos].Load();
                 }

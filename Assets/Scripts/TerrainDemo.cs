@@ -15,6 +15,8 @@ public class TerrainDemo : MonoBehaviour
     private NoiseSettings noiseSettings;
     [SerializeField]
     private NoiseSettings featureNoiseSettings;
+    [SerializeField]
+    private AnimationCurve featureNoiseInfluence;
     
     [Header("Material")]
     [SerializeField]
@@ -28,7 +30,7 @@ public class TerrainDemo : MonoBehaviour
     }
     
     public void GenerateSimpleTerrain(){
-        worldChunk = new WorldChunk(size,new Vector2Int(0,0),transform,noiseSettings,featureNoiseSettings,heightMultiplyer,terrainMaterial);
+        worldChunk = new WorldChunk(size,new Vector2Int(0,0),transform,noiseSettings,featureNoiseSettings,featureNoiseInfluence,heightMultiplyer,terrainMaterial);
         worldChunk.Load();
 
         plane.GetComponent<MeshRenderer>().sharedMaterial.mainTexture = TextureGenerator.GenerateNoiseTexture(Noise.GeneratePerlinNoise(size,featureNoiseSettings,offSet));

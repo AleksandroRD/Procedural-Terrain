@@ -17,7 +17,7 @@ public class WorldChunk
     float heightMultiplyer;
     HeightMap heightMap;
 
-    public WorldChunk(int size,Vector2Int coordinates,Transform parent,NoiseSettings baseNoiseSettings,NoiseSettings featureNoiseSettings,float heightMultiplyer,Material material){
+    public WorldChunk(int size,Vector2Int coordinates,Transform parent,NoiseSettings baseNoiseSettings,NoiseSettings featureNoiseSettings,AnimationCurve featureNoiseInfluence,float heightMultiplyer,Material material){
         this.coordinates = coordinates;
         this.baseNoiseSettings = baseNoiseSettings;
 
@@ -33,7 +33,7 @@ public class WorldChunk
 
         sampleCentre = new(coordinates.x * size, coordinates.y * size);
 
-        heightMap = HeightMapGenerator.GenerateHeightMap(size+1,baseNoiseSettings,featureNoiseSettings,heightMultiplyer,sampleCentre);
+        heightMap = HeightMapGenerator.GenerateHeightMap(size+1,baseNoiseSettings,featureNoiseSettings,featureNoiseInfluence,heightMultiplyer,sampleCentre);
         terrainMesh = MeshGenerator.GenerateMeshData(heightMap.values).CreateMesh();
         meshCollider.sharedMesh = terrainMesh;
         meshFilter.sharedMesh = terrainMesh;
