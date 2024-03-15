@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class WorldChunk
 {
-    public Vector2 coordinates;
+    public Vector2Int coordinates;
     GameObject meshObject;
 
     Mesh terrainMesh;
@@ -17,7 +17,7 @@ public class WorldChunk
     float heightMultiplyer;
     float[,] heightMap;
 
-    public WorldChunk(int size,Vector2 coordinates,Transform parent,NoiseSettings noiseSettings,float heightMultiplyer,Material material){
+    public WorldChunk(int size,Vector2Int coordinates,Transform parent,NoiseSettings noiseSettings,float heightMultiplyer,Material material){
         this.coordinates = coordinates;
         this.noiseSettings = noiseSettings;
 

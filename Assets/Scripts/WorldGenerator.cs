@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class WorldGenerator : MonoBehaviour
@@ -47,9 +45,15 @@ public class WorldGenerator : MonoBehaviour
 
     void UpdateChuncks(){
 
+        foreach(WorldChunk chunk in loadedChunks){
+            if(Vector2Int.Distance(chunk.coordinates,playerPos) > renderDistance){
+                chunk.Unload();
+            }
+        }
+
         for(int x = playerPos.x - renderDistance; x <= playerPos.x + renderDistance; x++){
             for(int y = playerPos.y - renderDistance; y <= playerPos.y + renderDistance; y++){
-                Vector2 pos = new Vector2(x,y);
+                Vector2Int pos = new Vector2Int(x,y);
 
                 if(generatedChunks.ContainsKey(pos)){
                     if(!generatedChunks[pos].ISLoaded()){
