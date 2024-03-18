@@ -3,30 +3,24 @@ using UnityEngine;
 
 public class WorldGenerator : MonoBehaviour
 {
-    [Header("World Generation")]
-    [SerializeField]
-    [Range(2,250)]
-    private int chunkSize;
-    [SerializeField]
-    private float heightMultiplyer;
-    [SerializeField]
-    private int renderDistance;
-    [SerializeField]
-    private Material terrainMaterial;
-
-    [SerializeField]
-    private Transform player;
-    private Vector2Int playerPos;
-    private Vector2Int oldPlayerPos;
+    [Header("General Settings")]
+    [SerializeField] [Range(2,250)] private int chunkSize;
+    [SerializeField] private float heightMultiplyer;
+    [SerializeField] private int renderDistance;
+    [SerializeField] private Material terrainMaterial;
+    [SerializeField] private Transform player;
     
+    [Header("Noise Settings")]
+    [SerializeField] private NoiseSettings baseNoiseSettings;
+    [SerializeField] private NoiseSettings featureNoiseSettings;
+    [SerializeField] private AnimationCurve featureNoiseInfluence;
+
     private Dictionary<Vector2,WorldChunk> generatedChunks = new Dictionary<Vector2, WorldChunk>();
     private List<WorldChunk> loadedChunks = new List<WorldChunk>();
-    [SerializeField]
-    private NoiseSettings baseNoiseSettings;
-    [SerializeField]
-    private NoiseSettings featureNoiseSettings;
-    [SerializeField]
-    private AnimationCurve featureNoiseInfluence;
+
+    private Vector2Int playerPos;
+    private Vector2Int oldPlayerPos;
+
     void Start(){
         UpdateChuncks();
     }

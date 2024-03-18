@@ -3,26 +3,17 @@ using UnityEngine;
 public class TerrainDemo : MonoBehaviour
 {  
     [Header("Hoise")]
-    //general settings
-    [SerializeField]
-     [Range(2,250)]
-    private int size;
-    [SerializeField]
-    float heightMultiplyer;
-    [SerializeField]
-    private Vector2 offSet;
-    [SerializeField]
-    private NoiseSettings noiseSettings;
-    [SerializeField]
-    private NoiseSettings featureNoiseSettings;
-    [SerializeField]
-    private AnimationCurve featureNoiseInfluence;
+    [SerializeField] [Range(2,250)] private int size;
+    [SerializeField] float heightMultiplyer;
+    [SerializeField] private Vector2 offSet;
+    [SerializeField] private NoiseSettings noiseSettings;
+    [SerializeField] private NoiseSettings featureNoiseSettings;
+    [SerializeField] private AnimationCurve featureNoiseInfluence;
     
     [Header("Material")]
-    [SerializeField]
-    private Material terrainMaterial;
-
+    [SerializeField] private Material terrainMaterial;
     public GameObject plane;
+
     private WorldChunk worldChunk;
     void Start()
     {
@@ -35,9 +26,9 @@ public class TerrainDemo : MonoBehaviour
 
         plane.GetComponent<MeshRenderer>().sharedMaterial.mainTexture = TextureGenerator.GenerateNoiseTexture(Noise.GeneratePerlinNoise(size,featureNoiseSettings,offSet));
     }
-
+    #if UNITY_EDITOR
     void OnValidate(){
         //GenerateSimpleTerrain();
     }
-
+    #endif
 }

@@ -1,14 +1,11 @@
 using UnityEngine;
 
-
+[RequireComponent(typeof(CharacterController))]
 public class FirstPersonController : MonoBehaviour
 {
-    [SerializeField]
-    private float speed = 2f;
-    [SerializeField]
-    private float sensitivity = 2f;
-    [SerializeField]
-    private CharacterController characterController;
+    [SerializeField] private float speed = 2f;
+    [SerializeField] private float sensitivity = 2f;
+    [SerializeField] private CharacterController characterController;
     private Camera playerCamera;
     private float rotationX = 0f;
 

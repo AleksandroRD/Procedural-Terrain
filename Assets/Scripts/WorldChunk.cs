@@ -12,14 +12,10 @@ public class WorldChunk
 
 	Vector2 sampleCentre;
 
-    NoiseSettings baseNoiseSettings;
-
-    float heightMultiplyer;
     HeightMap heightMap;
 
     public WorldChunk(int size,Vector2Int coordinates,Transform parent,NoiseSettings baseNoiseSettings,NoiseSettings featureNoiseSettings,AnimationCurve featureNoiseInfluence,float heightMultiplyer,Material material){
         this.coordinates = coordinates;
-        this.baseNoiseSettings = baseNoiseSettings;
 
         meshObject = new GameObject("Terrain Chunk");
 		meshRenderer = meshObject.AddComponent<MeshRenderer>();
@@ -57,6 +53,5 @@ public class WorldChunk
     private bool IsVisible() {
 		return meshObject.activeSelf;
 	}
-
 
 }
