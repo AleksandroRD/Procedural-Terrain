@@ -5,6 +5,7 @@ public class WorldGenerator : MonoBehaviour
 {
     [Header("General Settings")]
     [SerializeField][Range(2, 250)] private int _chunkSize;
+    [SerializeField] bool _randomSeed;
     [SerializeField] private float _minHeight;
     [SerializeField] private float _maxHeight;
     [SerializeField] private int _renderDistance;
@@ -12,8 +13,7 @@ public class WorldGenerator : MonoBehaviour
     [SerializeField] private Transform _player;
 
     [Header("Noise Settings")]
-    [SerializeField] private NoiseSettings _baseNoiseSettings;
-    [SerializeField] private List<NoiseSettings> _featureNoiseLayers;
+    [SerializeField] private List<NoiseSettings> _noiseLayers;
 
     private Dictionary<Vector2, WorldChunk> _generatedChunks = new Dictionary<Vector2, WorldChunk>();
     private List<WorldChunk> _loadedChunks = new List<WorldChunk>();
@@ -23,6 +23,13 @@ public class WorldGenerator : MonoBehaviour
 
     void Start()
     {
+        if(_randomSeed)
+        {
+            foreach (var layer in _noiseLayers)
+            {
+                layer.seed = Random.Range(0,99999999);
+            }
+        }
         UpdateChuncks();
     }
 
@@ -73,8 +80,7 @@ public class WorldGenerator : MonoBehaviour
                 _generatedChunks[pos] = new(_chunkSize,
                     pos,
                     transform,
-                    _baseNoiseSettings,
-                    _featureNoiseLayers,
+                    _noiseLayers,
                     _minHeight,
                     _maxHeight,
                     _terrainMaterial

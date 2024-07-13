@@ -134,12 +134,12 @@ GameObject:
   - component: {fileID: 65746604}
   - component: {fileID: 65746603}
   m_Layer: 0
-  m_Name: WorldGenerator (1)
+  m_Name: Test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &65746603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,70 +153,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _chunkSize: 100
+  _randomSeed: 0
   _minHeight: 0
   _maxHeight: 100
   _renderDistance: 4
   _terrainMaterial: {fileID: 2100000, guid: ac3a2a2dcf99bcb4193e6c0926a0ad29, type: 2}
   _player: {fileID: 1578990663}
-  _baseNoiseSettings:
-    seed: 345
-    scale: 100
-    octaves: 3
-    persistance: 0.9
-    lacunarity: 1
-    offset: {x: 0, y: 0}
-    noiseInfluence:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 34
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.19434187
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.49
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.5
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 34
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-  _featureNoiseLayers: []
+  _noiseLayers: []
 --- !u!4 &65746604
 Transform:
   m_ObjectHideFlags: 0
@@ -638,6 +581,58 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 394acbeea5770744e837ff34c45c260a, type: 3}
+--- !u!1 &1362731856
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1362731858}
+  - component: {fileID: 1362731857}
+  m_Layer: 0
+  m_Name: Store
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1362731857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1362731856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 300a5b3be80fe5f41bebe45d2ed607eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _chunkSize: 100
+  _randomSeed: 0
+  _minHeight: 0
+  _maxHeight: 100
+  _renderDistance: 4
+  _terrainMaterial: {fileID: 2100000, guid: ac3a2a2dcf99bcb4193e6c0926a0ad29, type: 2}
+  _player: {fileID: 1578990663}
+  _noiseLayers: []
+--- !u!4 &1362731858
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1362731856}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1385530050
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,7 +649,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1385530051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -668,15 +663,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _chunkSize: 100
+  _randomSeed: 1
   _minHeight: 0
   _maxHeight: 80
   _renderDistance: 4
   _terrainMaterial: {fileID: 2100000, guid: ac3a2a2dcf99bcb4193e6c0926a0ad29, type: 2}
   _player: {fileID: 1578990663}
-  _baseNoiseSettings:
-    seed: 2
-    scale: 50
-    octaves: 4
+  _noiseLayers:
+  - seed: 0
+    scale: 1
+    octaves: 3
     persistance: 0.7
     lacunarity: 1.8
     offset: {x: 0, y: 0}
@@ -685,31 +681,30 @@ MonoBehaviour:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0
-        inSlope: 1
-        outSlope: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
         tangentMode: 34
         weightedMode: 0
         inWeight: 0
-        outWeight: 0.33333334
+        outWeight: 0
       - serializedVersion: 3
         time: 1
         value: 1
-        inSlope: 1
-        outSlope: 1
+        inSlope: 0
+        outSlope: 0
         tangentMode: 34
         weightedMode: 0
-        inWeight: 0.33333334
+        inWeight: 0
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  _featureNoiseLayers:
   - seed: 0
-    scale: 300
-    octaves: 2
+    scale: 500
+    octaves: 3
     persistance: 0.7
-    lacunarity: 1.5
+    lacunarity: 1.8
     offset: {x: 0, y: 0}
     noiseInfluence:
       serializedVersion: 2
@@ -726,44 +721,167 @@ MonoBehaviour:
       - serializedVersion: 3
         time: 0.2
         value: 0
-        inSlope: -0.020728493
-        outSlope: -0.020728493
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.045512047
-      - serializedVersion: 3
-        time: 0.3
-        value: 0.4
-        inSlope: 1.126387
-        outSlope: 1.126387
+        inSlope: 0
+        outSlope: 0
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.4
-        value: 0.41
-        inSlope: -0.0053504948
-        outSlope: -0.0053504948
+        time: 0.25
+        value: 0.5
+        inSlope: 0
+        outSlope: 0
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.049346782
+        outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.58
-        value: 0.9
-        inSlope: 0.096531555
-        outSlope: 0.096531555
+        time: 0.3
+        value: 0.5
+        inSlope: 0
+        outSlope: 0
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.08722816
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.35
+        value: 0.85
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
         value: 1
-        inSlope: 0.23809528
-        outSlope: 0.23809528
+        inSlope: 0.2307692
+        outSlope: 0.2307692
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  - seed: 0
+    scale: 100
+    octaves: 6
+    persistance: 0.7
+    lacunarity: 1.8
+    offset: {x: 0, y: 0}
+    noiseInfluence:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: -3.5069234
+        outSlope: -3.5069234
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.112912275
+        value: 0.6040253
+        inSlope: 0.3844946
+        outSlope: 0.3844946
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.02973483
+      - serializedVersion: 3
+        time: 0.29786077
+        value: 0.54902214
+        inSlope: -0.3489021
+        outSlope: -0.3489021
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.48944214
+        value: 0.16164723
+        inSlope: -0.08645002
+        outSlope: -0.08645002
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.1281508
+      - serializedVersion: 3
+        time: 0.74129474
+        value: 0.13706756
+        inSlope: -0.072825015
+        outSlope: -0.072825015
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.29077986
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: -0.5298213
+        outSlope: -0.5298213
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  - seed: 0
+    scale: 250
+    octaves: 3
+    persistance: 0.7
+    lacunarity: 1.8
+    offset: {x: 0, y: 0}
+    noiseInfluence:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0.1
+        value: 0
+        inSlope: 1.6768281
+        outSlope: 1.6768281
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.20684977
+        value: 0.1791687
+        inSlope: 0.48766285
+        outSlope: 0.48766285
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.105350785
+      - serializedVersion: 3
+        time: 0.46384677
+        value: 0.24511224
+        inSlope: 0.16642442
+        outSlope: 0.16642442
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.15843008
+      - serializedVersion: 3
+        time: 0.7609766
+        value: 0.90939826
+        inSlope: 0.29538596
+        outSlope: 0.29538596
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.3003688
+      - serializedVersion: 3
+        time: 0.9987793
+        value: 0.8914833
+        inSlope: -0.07533536
+        outSlope: -0.07533536
         tangentMode: 34
         weightedMode: 0
         inWeight: 0.33333334
@@ -962,6 +1080,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 1385530052}
   - {fileID: 65746604}
+  - {fileID: 1362731858}
   - {fileID: 1326766879}
   - {fileID: 363946947}
   - {fileID: 272310487}

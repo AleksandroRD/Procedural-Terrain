@@ -15,11 +15,11 @@ public class WorldChunk
 
     HeightMap heightMap;
 
-    public WorldChunk(int size, Vector2Int coordinates, Transform parent, NoiseSettings baseNoiseSettings, List<NoiseSettings> featureNoiseLayers, float heightMultiplyer, float maxHeight, Material material)
+    public WorldChunk(int size, Vector2Int coordinates, Transform parent, List<NoiseSettings> featureNoiseLayers, float heightMultiplyer, float maxHeight, Material material)
     {
         this.coordinates = coordinates;
 
-        gameObject = new GameObject("Terrain Chunk");
+        gameObject = new GameObject("Terrain Chunk (x:" + coordinates.x + "y: " + coordinates.y + ")");
         meshRenderer = gameObject.AddComponent<MeshRenderer>();
         meshFilter = gameObject.AddComponent<MeshFilter>();
         meshCollider = gameObject.AddComponent<MeshCollider>();
@@ -32,7 +32,7 @@ public class WorldChunk
 
         sampleCentre = new(coordinates.x * size, coordinates.y * size);
 
-        heightMap = HeightMapGenerator.GenerateHeightMap(size + 1, baseNoiseSettings, featureNoiseLayers, heightMultiplyer, maxHeight, sampleCentre);
+        heightMap = HeightMapGenerator.GenerateHeightMap(size + 1, featureNoiseLayers, heightMultiplyer, maxHeight, sampleCentre);
         terrainMesh = MeshGenerator.GenerateMeshData(heightMap.values).CreateMesh();
 
         meshCollider.sharedMesh = terrainMesh;
