@@ -6,6 +6,7 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] private float speed = 2f;
     [SerializeField] private float sensitivity = 2f;
     [SerializeField] private CharacterController characterController;
+    [SerializeField] private float weight = 60;
     private Camera playerCamera;
     private float rotationX = 0f;
 
@@ -34,7 +35,7 @@ public class FirstPersonController : MonoBehaviour
         characterController.Move(movement);
 
         // Simulate gravity
-        characterController.Move(Vector3.down * 9.8f * Time.deltaTime);
+        characterController.Move(Vector3.down * 9.8f * Time.deltaTime * weight);
     }
 
     void HandleMouseLook()

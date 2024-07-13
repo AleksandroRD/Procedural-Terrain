@@ -3,7 +3,8 @@ using UnityEngine;
 
 public static class HeightMapGenerator
 {
-    public static HeightMap GenerateHeightMap(int size, NoiseSettings baseNoiseSettings, List<NoiseSettings> featureNoiseLayers, float minHeight, float maxHeight, Vector2 sampleCenter){
+    public static HeightMap GenerateHeightMap(int size, NoiseSettings baseNoiseSettings, List<NoiseSettings> featureNoiseLayers, float minHeight, float maxHeight, Vector2 sampleCenter)
+    {
         float[,] values = Noise.GeneratePerlinNoise(size, baseNoiseSettings, sampleCenter);
 
         for (int x = 0; x < size; x++)
@@ -18,9 +19,11 @@ public static class HeightMapGenerator
         {
             float[,] featuredNoise = Noise.GeneratePerlinNoise(size, featureNoiseLayers[i], sampleCenter);
 
-            for (int x = 0; x < size; x++){
-                for(int y = 0; y < size; y++){
-                    values[x,y] = (values[x, y] + Mathf.Lerp(minHeight, maxHeight, featureNoiseLayers[i].noiseInfluence.Evaluate(featuredNoise[x, y])))  * 0.5f;
+            for (int x = 0; x < size; x++)
+            {
+                for (int y = 0; y < size; y++)
+                {
+                    values[x, y] = (values[x, y] + Mathf.Lerp(minHeight, maxHeight, featureNoiseLayers[i].noiseInfluence.Evaluate(featuredNoise[x, y]))) * 0.5f;
                 }
             }
         }
@@ -33,8 +36,8 @@ public struct HeightMap
 {
     public readonly float[,] values;
 
-    public HeightMap (float[,] values)
-	{
-		this.values = values;
-	}
-} 
+    public HeightMap(float[,] values)
+    {
+        this.values = values;
+    }
+}
