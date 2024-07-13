@@ -1,9 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class WorldChunk
 {
     public Vector2Int coordinates;
-    GameObject meshObject;
+    public GameObject gameObject;
 
     Mesh terrainMesh;
     MeshRenderer meshRenderer;
@@ -14,23 +15,25 @@ public class WorldChunk
 
     HeightMap heightMap;
 
-    public WorldChunk(int size,Vector2Int coordinates,Transform parent,NoiseSettings baseNoiseSettings,NoiseSettings featureNoiseSettings,AnimationCurve featureNoiseInfluence,float heightMultiplyer,Material material){
+    public WorldChunk(int size, Vector2Int coordinates, Transform parent, NoiseSettings baseNoiseSettings, List<NoiseSettings> featureNoiseLayers, float heightMultiplyer,float maxHeight, Material material){
         this.coordinates = coordinates;
 
-        meshObject = new GameObject("Terrain Chunk");
-		meshRenderer = meshObject.AddComponent<MeshRenderer>();
-		meshFilter = meshObject.AddComponent<MeshFilter>();
-		meshCollider = meshObject.AddComponent<MeshCollider>();
+        gameObject = new GameObject("Terrain Chunk");
+		meshRenderer = gameObject.AddComponent<MeshRenderer>();
+		meshFilter = gameObject.AddComponent<MeshFilter>();
+		meshCollider = gameObject.AddComponent<MeshCollider>();
 		meshRenderer.material = material;
 
-        meshObject.transform.position = new Vector3(coordinates.x * size,0,coordinates.y * size);
-		meshObject.transform.parent = parent;
+        gameObject.transform.position = new Vector3(coordinates.x * size,0,coordinates.y * size);
+		gameObject.transform.parent = parent;
+
         SetVisible(false);
 
         sampleCentre = new(coordinates.x * size, coordinates.y * size);
 
-        heightMap = HeightMapGenerator.GenerateHeightMap(size+1,baseNoiseSettings,featureNoiseSettings,featureNoiseInfluence,heightMultiplyer,sampleCentre);
+        heightMap = HeightMapGenerator.GenerateHeightMap(size+1, baseNoiseSettings, featureNoiseLayers, heightMultiplyer, maxHeight, sampleCentre);
         terrainMesh = MeshGenerator.GenerateMeshData(heightMap.values).CreateMesh();
+
         meshCollider.sharedMesh = terrainMesh;
         meshFilter.sharedMesh = terrainMesh;
     }
@@ -47,11 +50,11 @@ public class WorldChunk
         return IsVisible();
     }
     private void SetVisible(bool visible){
-        meshObject.SetActive(visible);
+        gameObject.SetActive(visible);
     }
 
     private bool IsVisible() {
-		return meshObject.activeSelf;
+		return gameObject.activeSelf;
 	}
 
 }

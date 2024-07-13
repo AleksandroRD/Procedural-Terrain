@@ -4,64 +4,74 @@ using UnityEngine;
 public class WorldGenerator : MonoBehaviour
 {
     [Header("General Settings")]
-    [SerializeField] [Range(2,250)] private int chunkSize;
-    [SerializeField] private float heightMultiplyer;
-    [SerializeField] private int renderDistance;
-    [SerializeField] private Material terrainMaterial;
-    [SerializeField] private Transform player;
+    [SerializeField] [Range(2,250)] private int _chunkSize;
+    [SerializeField] private float _minHeight;
+    [SerializeField] private float _maxHeight;
+    [SerializeField] private int _renderDistance;
+    [SerializeField] private Material _terrainMaterial;
+    [SerializeField] private Transform _player;
     
     [Header("Noise Settings")]
-    [SerializeField] private NoiseSettings baseNoiseSettings;
-    [SerializeField] private NoiseSettings featureNoiseSettings;
-    [SerializeField] private AnimationCurve featureNoiseInfluence;
+    [SerializeField] private NoiseSettings _baseNoiseSettings;
+    [SerializeField] private List<NoiseSettings> _featureNoiseLayers;
 
-    private Dictionary<Vector2,WorldChunk> generatedChunks = new Dictionary<Vector2, WorldChunk>();
-    private List<WorldChunk> loadedChunks = new List<WorldChunk>();
+    private Dictionary<Vector2,WorldChunk> _generatedChunks = new Dictionary<Vector2, WorldChunk>();
+    private List<WorldChunk> _loadedChunks = new List<WorldChunk>();
 
-    private Vector2Int playerPos;
-    private Vector2Int oldPlayerPos;
+    private Vector2Int _playerPos;
+    private Vector2Int _oldPlayerPos;
 
     void Start(){
         UpdateChuncks();
     }
 
     void Update(){
+        int x = Mathf.RoundToInt(_player.position.x / _chunkSize);
+        int y = Mathf.RoundToInt(_player.position.z / _chunkSize);
 
-        int x = Mathf.RoundToInt(player.position.x / chunkSize);
-        int y = Mathf.RoundToInt(player.position.z / chunkSize);
+        _playerPos = new(x,y);
 
-        playerPos = new(x,y);
-
-        if(playerPos != oldPlayerPos){
+        if(_playerPos != _oldPlayerPos){
             
             UpdateChuncks();
         }
 
-        oldPlayerPos = playerPos;
+        _oldPlayerPos = _playerPos;
 
     }
 
     void UpdateChuncks(){
 
-        foreach(WorldChunk chunk in loadedChunks){
-            if(Vector2Int.Distance(chunk.coordinates,playerPos) > renderDistance){
+        foreach(WorldChunk chunk in _loadedChunks){
+            if(Vector2Int.Distance(chunk.coordinates,_playerPos) > _renderDistance){
                 chunk.Unload();
             }
         }
 
-        for(int x = playerPos.x - renderDistance; x <= playerPos.x + renderDistance; x++){
-            for(int y = playerPos.y - renderDistance; y <= playerPos.y + renderDistance; y++){
+        for(int x = _playerPos.x - _renderDistance; x <= _playerPos.x + _renderDistance; x++){
+            for(int y = _playerPos.y - _renderDistance; y <= _playerPos.y + _renderDistance; y++){
                 Vector2Int pos = new Vector2Int(x,y);
 
-                if(generatedChunks.ContainsKey(pos)){
-                    if(!generatedChunks[pos].ISLoaded()){
-                        generatedChunks[pos].Load();
+                if(_generatedChunks.ContainsKey(pos)){
+                    if(!_generatedChunks[pos].ISLoaded()){
+                        _generatedChunks[pos].Load();
                     }
-                }else{
-                    generatedChunks[pos] = new (chunkSize,pos,transform,baseNoiseSettings,featureNoiseSettings,featureNoiseInfluence,heightMultiplyer,terrainMaterial);
-                    loadedChunks.Add(generatedChunks[pos]);
-                    generatedChunks[pos].Load();
+
+                    continue;
                 }
+
+                _generatedChunks[pos] = new(_chunkSize,
+                    pos,
+                    transform,
+                    _baseNoiseSettings,
+                    _featureNoiseLayers,
+                    _minHeight,
+                    _maxHeight,
+                    _terrainMaterial
+                );
+
+                _loadedChunks.Add(_generatedChunks[pos]);
+                _generatedChunks[pos].Load();
             }
         }
 
