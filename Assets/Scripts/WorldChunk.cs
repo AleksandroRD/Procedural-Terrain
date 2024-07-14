@@ -15,50 +15,44 @@ public class WorldChunk
 
     HeightMap heightMap;
 
-    public WorldChunk(int size, Vector2Int coordinates, Transform parent, List<NoiseSettings> featureNoiseLayers, float heightMultiplyer, float maxHeight, Material material)
+    public WorldChunk(int size, Vector2Int coordinates, Transform parent, List<NoiseSettings> featureNoiseLayers, float minHeight, float maxHeight, Material groundMaterial)
     {
         this.coordinates = coordinates;
 
-        gameObject = new GameObject("Terrain Chunk (x:" + coordinates.x + "y: " + coordinates.y + ")");
+        gameObject = new GameObject("Terrain Chunk (x: " + coordinates.x + " y: " + coordinates.y + ")");
         meshRenderer = gameObject.AddComponent<MeshRenderer>();
         meshFilter = gameObject.AddComponent<MeshFilter>();
         meshCollider = gameObject.AddComponent<MeshCollider>();
-        meshRenderer.material = material;
+        meshRenderer.material = groundMaterial;
 
         gameObject.transform.position = new Vector3(coordinates.x * size, 0, coordinates.y * size);
         gameObject.transform.parent = parent;
 
-        SetVisible(false);
-
         sampleCentre = new(coordinates.x * size, coordinates.y * size);
 
-        heightMap = HeightMapGenerator.GenerateHeightMap(size + 1, featureNoiseLayers, heightMultiplyer, maxHeight, sampleCentre);
+        heightMap = HeightMapGenerator.GenerateHeightMap(size + 1, featureNoiseLayers, minHeight, maxHeight, sampleCentre);
         terrainMesh = MeshGenerator.GenerateMeshData(heightMap.values).CreateMesh();
 
         meshCollider.sharedMesh = terrainMesh;
         meshFilter.sharedMesh = terrainMesh;
     }
 
-    public void Load()
-    {
-        SetVisible(true);
-    }
+    // public void Load()
+    // {
+        
+    // }
 
-    public void Unload()
-    {
-        SetVisible(false);
-    }
+    // public bool IsLoaded()
+    // {
+        
+    // }
 
-    public bool ISLoaded()
-    {
-        return IsVisible();
-    }
-    private void SetVisible(bool visible)
+    public void SetVisible(bool visible)
     {
         gameObject.SetActive(visible);
     }
 
-    private bool IsVisible()
+    public bool IsVisible()
     {
         return gameObject.activeSelf;
     }

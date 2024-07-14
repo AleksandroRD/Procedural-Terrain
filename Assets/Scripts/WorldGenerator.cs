@@ -33,7 +33,7 @@ public class WorldGenerator : MonoBehaviour
         UpdateChuncks();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         int x = Mathf.RoundToInt(_player.position.x / _chunkSize);
         int y = Mathf.RoundToInt(_player.position.z / _chunkSize);
@@ -57,7 +57,7 @@ public class WorldGenerator : MonoBehaviour
         {
             if (Vector2Int.Distance(chunk.coordinates, _playerPos) > _renderDistance)
             {
-                chunk.Unload();
+                chunk.SetVisible(false);
             }
         }
 
@@ -69,9 +69,9 @@ public class WorldGenerator : MonoBehaviour
 
                 if (_generatedChunks.ContainsKey(pos))
                 {
-                    if (!_generatedChunks[pos].ISLoaded())
+                    if (!_generatedChunks[pos].IsVisible())
                     {
-                        _generatedChunks[pos].Load();
+                        _generatedChunks[pos].SetVisible(true);
                     }
 
                     continue;
@@ -87,7 +87,6 @@ public class WorldGenerator : MonoBehaviour
                 );
 
                 _loadedChunks.Add(_generatedChunks[pos]);
-                _generatedChunks[pos].Load();
             }
         }
 

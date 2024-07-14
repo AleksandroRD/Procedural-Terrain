@@ -46,10 +46,9 @@ public static class Noise
 					frequency *= settings.lacunarity;
 
 				}
-				noiseMap[x, y] = noiseValue;
 
-				float normalizedHeight = noiseMap[x, y] / (maxPossibleHeight / 0.9f);
-				noiseMap[x, y] = Mathf.Clamp(normalizedHeight, 0, int.MaxValue);
+				float normalizedHeight = noiseValue / (maxPossibleHeight / 0.9f);
+				noiseMap[x, y] = normalizedHeight < 0 ? 0 : normalizedHeight;
 			}
 		}
 
