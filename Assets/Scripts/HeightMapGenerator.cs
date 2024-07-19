@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 
 public static class HeightMapGenerator
@@ -16,21 +17,23 @@ public static class HeightMapGenerator
             {
                 for (int y = 0; y < size; y++)
                 {
-                    values[x, y] = (values[x, y] + Mathf.LerpUnclamped(minHeight, maxHeight, noiseSettings.noiseInfluence.Evaluate(featuredNoise[x, y]))) * 0.5f;
+                    values[x, y] = (values[x, y] + Mathf.LerpUnclamped(minHeight, maxHeight, noiseSettings.NoiseInfluence.Evaluate(featuredNoise[x, y]))) * 0.5f;
                 }
             }
         }
 
-        return new HeightMap(values);
+        return new HeightMap(values, size);
     }
 }
 
 public struct HeightMap
 {
-    public readonly float[,] values;
+    public readonly int Size;
+    public readonly float[,] Values;
 
-    public HeightMap(float[,] values)
+    public HeightMap(float[,] values, int size)
     {
-        this.values = values;
+        this.Values = values;
+        this.Size = size;
     }
 }

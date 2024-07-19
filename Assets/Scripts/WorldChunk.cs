@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class WorldChunk
 {
-    public Vector2Int coordinates;
+    public Vector2Int Coordinates;
     public GameObject gameObject;
 
     Mesh terrainMesh;
@@ -13,11 +13,11 @@ public class WorldChunk
 
     Vector2 sampleCentre;
 
-    HeightMap heightMap;
+    public HeightMap HeightMap;
 
-    public WorldChunk(int size, Vector2Int coordinates, Transform parent, List<NoiseSettings> featureNoiseLayers, float minHeight, float maxHeight, Material groundMaterial)
+    public WorldChunk(int size, Vector2Int coordinates, Transform parent, List<NoiseSettings> featureNoiseLayers, List<DetailSettings> detailSettings, float minHeight, float maxHeight, Material groundMaterial)
     {
-        this.coordinates = coordinates;
+        Coordinates = coordinates;
 
         gameObject = new GameObject("Terrain Chunk (x: " + coordinates.x + " y: " + coordinates.y + ")");
         meshRenderer = gameObject.AddComponent<MeshRenderer>();
@@ -30,8 +30,9 @@ public class WorldChunk
 
         sampleCentre = new(coordinates.x * size, coordinates.y * size);
 
-        heightMap = HeightMapGenerator.GenerateHeightMap(size + 1, featureNoiseLayers, minHeight, maxHeight, sampleCentre);
-        terrainMesh = MeshGenerator.GenerateMeshData(heightMap.values).CreateMesh();
+        HeightMap = HeightMapGenerator.GenerateHeightMap(size + 1, featureNoiseLayers, minHeight, maxHeight, sampleCentre);
+        terrainMesh = MeshGenerator.GenerateMeshData(HeightMap.Values).CreateMesh();
+        DetailGenerator.CreateDetails(this, detailSettings);
 
         meshCollider.sharedMesh = terrainMesh;
         meshFilter.sharedMesh = terrainMesh;

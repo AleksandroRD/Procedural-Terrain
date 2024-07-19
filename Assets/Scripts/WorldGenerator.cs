@@ -5,6 +5,8 @@ public class WorldGenerator : MonoBehaviour
 {
     [Header("General Settings")]
     [SerializeField][Range(2, 250)] private int _chunkSize;
+    [SerializeField] bool _randomSeed;
+    [SerializeField] int _seed;
     [SerializeField] float _waterLevelHeight;
     [SerializeField] private float _minHeight;
     [SerializeField] private float _maxHeight;
@@ -14,9 +16,11 @@ public class WorldGenerator : MonoBehaviour
     [SerializeField] private Transform _waterMesh;
 
     [Header("Noise Settings")]
-    [SerializeField] bool _randomSeed;
     [SerializeField] float _globalScale;
     [SerializeField] private List<NoiseSettings> _noiseLayers;
+
+    [Header("Detail Settings")]
+    [SerializeField] private List<DetailSettings> _detailSettings;
 
     private Dictionary<Vector2, WorldChunk> _generatedChunks = new Dictionary<Vector2, WorldChunk>();
     private List<WorldChunk> _loadedChunks = new List<WorldChunk>();
@@ -33,12 +37,14 @@ public class WorldGenerator : MonoBehaviour
 
         if (_randomSeed)
         {
+            int seed = (int)Random.Range(0, 99999999);
             foreach (var layer in _noiseLayers)
             {
-                layer.seed = Random.Range(0,99999999);
-                layer.scale *= _globalScale;
+                layer.Seed = _randomSeed ? seed : _seed;
+                layer.Scale *= _globalScale;
             }
         }
+
         UpdateChuncks();
     }
 
@@ -68,7 +74,7 @@ public class WorldGenerator : MonoBehaviour
 
         foreach (WorldChunk chunk in _loadedChunks)
         {
-            if (Vector2Int.Distance(chunk.coordinates, _playerPos) > _renderDistance)
+            if (Vector2Int.Distance(chunk.Coordinates, _playerPos) > _renderDistance)
             {
                 chunk.SetVisible(false);
             }
@@ -94,6 +100,7 @@ public class WorldGenerator : MonoBehaviour
                     pos,
                     transform,
                     _noiseLayers,
+                    _detailSettings,
                     _minHeight,
                     _maxHeight,
                     _terrainMaterial

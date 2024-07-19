@@ -5,22 +5,22 @@ public static class Noise
 	public static float[,] GeneratePerlinNoise(int size, NoiseSettings settings, Vector2 sampleCenter)
 	{
 		float[,] noiseMap = new float[size, size];
-		Vector2[] octaveOffsets = new Vector2[settings.octaves];
+		Vector2[] octaveOffsets = new Vector2[settings.Octaves];
 
-		System.Random prng = new System.Random(settings.seed);
+		System.Random prng = new System.Random(settings.Seed);
 
 		float maxPossibleHeight = 0;
 
 		float amplitude = 1;
 		float frequency = 1;
 
-		for (int i = 0; i < settings.octaves; i++)
+		for (int i = 0; i < settings.Octaves; i++)
 		{
 			float offsetX = sampleCenter.x + prng.Next(-100000, 100000) - size * 0.5f;
 			float offsetY = -sampleCenter.y + prng.Next(-100000, 100000) - size * 0.5f;
 
 			maxPossibleHeight += amplitude;
-			amplitude *= settings.persistance;
+			amplitude *= settings.Persistance;
 
 			octaveOffsets[i] = new Vector2(offsetX, offsetY);
 		}
@@ -34,16 +34,16 @@ public static class Noise
 				amplitude = 1;
 				float noiseValue = 0;
 
-				for (int i = 0; i < settings.octaves; i++)
+				for (int i = 0; i < settings.Octaves; i++)
 				{
-					float sampleX = (x + octaveOffsets[i].x) / settings.scale * frequency;
-					float sampleY = (y + octaveOffsets[i].y) / settings.scale * frequency;
+					float sampleX = (x + octaveOffsets[i].x) / settings.Scale * frequency;
+					float sampleY = (y + octaveOffsets[i].y) / settings.Scale * frequency;
 
 					float perlinValue = Mathf.PerlinNoise(sampleX, sampleY);
 					noiseValue += perlinValue * amplitude;
 
-					amplitude *= settings.persistance;
-					frequency *= settings.lacunarity;
+					amplitude *= settings.Persistance;
+					frequency *= settings.Lacunarity;
 
 				}
 
@@ -154,11 +154,11 @@ public static class Noise
 [System.Serializable]
 public class NoiseSettings
 {
-	public int seed;
-	public float scale = 50;
-	public int octaves = 6;
-	[Range(0, 1)] public float persistance = .6f;
-	public float lacunarity = 2;
-	public Vector2 offset;
-	public AnimationCurve noiseInfluence;
+	public int Seed;
+	public float Scale = 50;
+	public int Octaves = 6;
+	[Range(0, 1)] public float Persistance = .6f;
+	public float Lacunarity = 2;
+	public Vector2 Offset;
+	public AnimationCurve NoiseInfluence;
 }

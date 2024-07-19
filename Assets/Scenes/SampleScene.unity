@@ -571,6 +571,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _chunkSize: 100
+  _randomSeed: 1
+  _seed: 0
   _waterLevelHeight: 0
   _minHeight: -25
   _maxHeight: 150
@@ -578,16 +580,15 @@ MonoBehaviour:
   _terrainMaterial: {fileID: 2100000, guid: ac3a2a2dcf99bcb4193e6c0926a0ad29, type: 2}
   _player: {fileID: 1578990663}
   _waterMesh: {fileID: 85787349}
-  _randomSeed: 1
   _globalScale: 100
   _noiseLayers:
-  - seed: 0
-    scale: 5
-    octaves: 3
-    persistance: 0.7
-    lacunarity: 1.8
-    offset: {x: 0, y: 0}
-    noiseInfluence:
+  - Seed: 0
+    Scale: 4
+    Octaves: 3
+    Persistance: 0.7
+    Lacunarity: 1.8
+    Offset: {x: 0, y: 0}
+    NoiseInfluence:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -638,13 +639,13 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  - seed: 0
-    scale: 4
-    octaves: 5
-    persistance: 0.7
-    lacunarity: 1.8
-    offset: {x: 0, y: 0}
-    noiseInfluence:
+  - Seed: 0
+    Scale: 5
+    Octaves: 5
+    Persistance: 0.7
+    Lacunarity: 1.8
+    Offset: {x: 0, y: 0}
+    NoiseInfluence:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -704,13 +705,13 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  - seed: 0
-    scale: 2.5
-    octaves: 3
-    persistance: 0.7
-    lacunarity: 1.8
-    offset: {x: 0, y: 0}
-    noiseInfluence:
+  - Seed: 0
+    Scale: 2.5
+    Octaves: 3
+    Persistance: 0.7
+    Lacunarity: 1.8
+    Offset: {x: 0, y: 0}
+    NoiseInfluence:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
@@ -761,6 +762,28 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+  _detailSettings:
+  - Detail: {fileID: 100000, guid: 232d918e673de694d8a118b6efe0bf6f, type: 3}
+    Seed: 0
+    AmountPerChunk: 5
+    MinHeight: 0
+    MaxHeight: 50
+    MinAngle: 0
+    MaxAngle: 0
+  - Detail: {fileID: 100000, guid: 6b4b29e49f76c9f46b7f3594d299d8d9, type: 3}
+    Seed: 0
+    AmountPerChunk: 5
+    MinHeight: 0
+    MaxHeight: 50
+    MinAngle: 0
+    MaxAngle: 0
+  - Detail: {fileID: 100000, guid: 011ca9ca00b21594c8a16ee78d6a8c7c, type: 3}
+    Seed: 0
+    AmountPerChunk: 8
+    MinHeight: 0
+    MaxHeight: 35
+    MinAngle: 0
+    MaxAngle: 0
 --- !u!4 &1385530052
 Transform:
   m_ObjectHideFlags: 0
