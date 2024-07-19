@@ -5,14 +5,17 @@ public class WorldGenerator : MonoBehaviour
 {
     [Header("General Settings")]
     [SerializeField][Range(2, 250)] private int _chunkSize;
-    [SerializeField] bool _randomSeed;
+    [SerializeField] float _waterLevelHeight;
     [SerializeField] private float _minHeight;
     [SerializeField] private float _maxHeight;
     [SerializeField] private int _renderDistance;
     [SerializeField] private Material _terrainMaterial;
     [SerializeField] private Transform _player;
+    [SerializeField] private Transform _waterMesh;
 
     [Header("Noise Settings")]
+    [SerializeField] bool _randomSeed;
+    [SerializeField] float _globalScale;
     [SerializeField] private List<NoiseSettings> _noiseLayers;
 
     private Dictionary<Vector2, WorldChunk> _generatedChunks = new Dictionary<Vector2, WorldChunk>();
@@ -23,11 +26,17 @@ public class WorldGenerator : MonoBehaviour
 
     void Start()
     {
-        if(_randomSeed)
+        float scale = (_renderDistance * 2 + 1) * (_chunkSize * 0.1f);
+
+        _waterMesh.localScale = new Vector3(scale, scale, scale);
+        _waterMesh.position = new Vector3(0,_waterLevelHeight,0);
+
+        if (_randomSeed)
         {
             foreach (var layer in _noiseLayers)
             {
                 layer.seed = Random.Range(0,99999999);
+                layer.scale *= _globalScale;
             }
         }
         UpdateChuncks();
@@ -39,15 +48,19 @@ public class WorldGenerator : MonoBehaviour
         int y = Mathf.RoundToInt(_player.position.z / _chunkSize);
 
         _playerPos = new(x, y);
-
+        
         if (_playerPos != _oldPlayerPos)
         {
-
+            UpdateWater();
             UpdateChuncks();
         }
 
         _oldPlayerPos = _playerPos;
+    }
 
+    private void UpdateWater()
+    {
+        _waterMesh.position = new Vector3(_playerPos.x * _chunkSize, _waterLevelHeight, _playerPos.y * _chunkSize);
     }
 
     void UpdateChuncks()
