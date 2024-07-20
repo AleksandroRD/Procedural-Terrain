@@ -583,7 +583,7 @@ MonoBehaviour:
   _globalScale: 100
   _noiseLayers:
   - Seed: 0
-    Scale: 4
+    Scale: 400
     Octaves: 3
     Persistance: 0.7
     Lacunarity: 1.8
@@ -640,7 +640,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   - Seed: 0
-    Scale: 5
+    Scale: 500
     Octaves: 5
     Persistance: 0.7
     Lacunarity: 1.8
@@ -706,7 +706,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   - Seed: 0
-    Scale: 2.5
+    Scale: 250
     Octaves: 3
     Persistance: 0.7
     Lacunarity: 1.8

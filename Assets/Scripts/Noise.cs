@@ -25,29 +25,31 @@ public static class Noise
 			octaveOffsets[i] = new Vector2(offsetX, offsetY);
 		}
 
+		//little bit of optimization to calclulate some values outside of for loops
+		float reverseScale = 1 / settings.Scale;
+		float reverseMaxPossibleHeight = 1 / (maxPossibleHeight * 1.1f);
+
 		for (int x = 0; x < size; x++)
 		{
 			for (int y = 0; y < size; y++)
 			{
-
 				frequency = 1;
 				amplitude = 1;
 				float noiseValue = 0;
 
 				for (int i = 0; i < settings.Octaves; i++)
 				{
-					float sampleX = (x + octaveOffsets[i].x) / settings.Scale * frequency;
-					float sampleY = (y + octaveOffsets[i].y) / settings.Scale * frequency;
+					float sampleX = (x + octaveOffsets[i].x) * reverseScale * frequency;
+					float sampleY = (y + octaveOffsets[i].y) * reverseScale * frequency;
 
 					float perlinValue = Mathf.PerlinNoise(sampleX, sampleY);
 					noiseValue += perlinValue * amplitude;
 
 					amplitude *= settings.Persistance;
 					frequency *= settings.Lacunarity;
-
 				}
 
-				float normalizedHeight = noiseValue / (maxPossibleHeight / 0.9f);
+				float normalizedHeight = noiseValue * reverseMaxPossibleHeight;
 				noiseMap[x, y] = normalizedHeight < 0 ? 0 : normalizedHeight;
 			}
 		}

@@ -16,7 +16,6 @@ public class WorldGenerator : MonoBehaviour
     [SerializeField] private Transform _waterMesh;
 
     [Header("Noise Settings")]
-    [SerializeField] float _globalScale;
     [SerializeField] private List<NoiseSettings> _noiseLayers;
 
     [Header("Detail Settings")]
@@ -35,14 +34,11 @@ public class WorldGenerator : MonoBehaviour
         _waterMesh.localScale = new Vector3(scale, scale, scale);
         _waterMesh.position = new Vector3(0,_waterLevelHeight,0);
 
-        if (_randomSeed)
+        System.Random rand = _randomSeed ? new System.Random(_seed) : new System.Random(Random.Range(0,99999999));
+
+        foreach (var layer in _noiseLayers)
         {
-            int seed = (int)Random.Range(0, 99999999);
-            foreach (var layer in _noiseLayers)
-            {
-                layer.Seed = _randomSeed ? seed : _seed;
-                layer.Scale *= _globalScale;
-            }
+            layer.Seed = rand.Next();
         }
 
         UpdateChuncks();
