@@ -15,7 +15,7 @@ public class WorldChunk
 
     public HeightMap HeightMap;
 
-    public WorldChunk(int size, Vector2Int coordinates, Transform parent, List<NoiseSettings> featureNoiseLayers, List<DetailSettings> detailSettings, float minHeight, float maxHeight, Material groundMaterial)
+    public WorldChunk(int size, Vector2Int coordinates, Transform parent, List<NoiseLayer> noiseLayers, List<DetailSettings> detailSettings, float minHeight, float maxHeight, Material groundMaterial)
     {
         Coordinates = coordinates;
 
@@ -30,7 +30,7 @@ public class WorldChunk
 
         sampleCentre = new(coordinates.x * size, coordinates.y * size);
 
-        HeightMap = HeightMapGenerator.GenerateHeightMap(size + 1, featureNoiseLayers, minHeight, maxHeight, sampleCentre);
+        HeightMap = HeightMapGenerator.GenerateHeightMap(size + 1, noiseLayers, minHeight, maxHeight, sampleCentre);
         terrainMesh = MeshGenerator.GenerateMeshData(HeightMap.Values).CreateMesh();
         DetailGenerator.CreateDetails(this, detailSettings);
 

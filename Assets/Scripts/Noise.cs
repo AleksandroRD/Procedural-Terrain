@@ -2,7 +2,7 @@ using UnityEngine;
 
 public static class Noise
 {
-	public static float[,] GeneratePerlinNoise(int size, NoiseSettings settings, Vector2 sampleCenter)
+	public static float[,] GeneratePerlinNoise(int size, PerlinNoiseSettings settings, Vector2 sampleCenter)
 	{
 		float[,] noiseMap = new float[size, size];
 		Vector2[] octaveOffsets = new Vector2[settings.Octaves];
@@ -150,11 +150,10 @@ public static class Noise
 
 		return tex;
 	}
-
 }
 
 [System.Serializable]
-public class NoiseSettings
+public class PerlinNoiseSettings : NoiseSettings
 {
 	public int Seed;
 	public float Scale = 50;
@@ -162,5 +161,17 @@ public class NoiseSettings
 	[Range(0, 1)] public float Persistance = .6f;
 	public float Lacunarity = 2;
 	public Vector2 Offset;
-	public AnimationCurve NoiseInfluence;
+
+	public override void Validate()
+	{
+		Scale = Mathf.Max(Scale, 0.01f);
+		Octaves = Mathf.Max(Octaves, 1);
+		Lacunarity = Mathf.Max(Lacunarity, 1);
+		Persistance = Mathf.Clamp01(Persistance);
+	}
+}
+
+public class NoiseSettings
+{
+	public virtual void Validate(){}
 }
