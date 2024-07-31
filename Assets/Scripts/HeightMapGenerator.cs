@@ -20,15 +20,21 @@ public static class HeightMapGenerator
                 for (int y = 0; y < size; y++)
                 {
                     values[x, y] = (values[x, y] + Mathf.LerpUnclamped(minHeight, maxHeight, noiseLayers[i].NoiseInfluence.Evaluate(featuredNoise[x, y]))) * 0.5f;
+                }
+            }
+        }
 
-                    if (values[x, y] < localMinHeight)
-                    {
-                        localMinHeight = values[x, y];
-                    }
-                    else if (values[x, y] > localMaxHeight)
-                    {
-                        localMaxHeight = values[x, y];
-                    }
+        for (int x = 0; x < size; x++)
+        {
+            for (int y = 0; y < size; y++)
+            {
+                if (values[x, y] < localMinHeight)
+                {
+                    localMinHeight = values[x, y];
+                }
+                if (values[x, y] > localMaxHeight)
+                {
+                    localMaxHeight = values[x, y];
                 }
             }
         }
