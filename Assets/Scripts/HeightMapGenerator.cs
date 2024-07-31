@@ -5,8 +5,11 @@ public static class HeightMapGenerator
 {
     public static HeightMap GenerateHeightMap(int size, List<NoiseLayer> noiseLayers, float minHeight, float maxHeight, Vector2 sampleCenter)
     {
-        float[,] values = new float[size,size];
-        
+        float[,] values = new float[size, size];
+
+        float localMinHeight = float.MaxValue;
+        float localMaxHeight = float.MinValue;
+
         for (int i = 0; i < noiseLayers.Count; i++)
         {
             PerlinNoiseSettings noiseSettings = noiseLayers[i].NoiseSettings;
@@ -17,11 +20,20 @@ public static class HeightMapGenerator
                 for (int y = 0; y < size; y++)
                 {
                     values[x, y] = (values[x, y] + Mathf.LerpUnclamped(minHeight, maxHeight, noiseLayers[i].NoiseInfluence.Evaluate(featuredNoise[x, y]))) * 0.5f;
+
+                    if (values[x, y] < localMinHeight)
+                    {
+                        localMinHeight = values[x, y];
+                    }
+                    else if (values[x, y] > localMaxHeight)
+                    {
+                        localMaxHeight = values[x, y];
+                    }
                 }
-            }       
+            }
         }
 
-        return new HeightMap(values, size);
+        return new HeightMap(values, size, localMinHeight, localMaxHeight);
     }
 }
 
@@ -29,10 +41,15 @@ public struct HeightMap
 {
     public readonly int Size;
     public readonly float[,] Values;
-    public HeightMap(float[,] values, int size)
+
+    public readonly float MinHeight;
+    public readonly float MaxHeight;
+    public HeightMap(float[,] values, int size, float minHeight, float maxHeight)
     {
         Values = values;
         Size = size;
+        MinHeight = minHeight;
+        MaxHeight = maxHeight;
     }
 }
 

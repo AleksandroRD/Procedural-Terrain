@@ -160,7 +160,6 @@ public class PerlinNoiseSettings : NoiseSettings
 	public int Octaves = 6;
 	[Range(0, 1)] public float Persistance = .6f;
 	public float Lacunarity = 2;
-	public Vector2 Offset;
 
 	public override void Validate()
 	{
@@ -173,5 +172,5 @@ public class PerlinNoiseSettings : NoiseSettings
 
 public class NoiseSettings
 {
-	public virtual void Validate(){}
+	public virtual void Validate() { }
 }

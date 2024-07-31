@@ -9,26 +9,27 @@ public static class DetailGenerator
         HeightMap heightMap = worldChunk.HeightMap;
         Transform chunkTransform = worldChunk.gameObject.transform;
 
-
         int halfSize = heightMap.Size / 2;
-        for (int i = 0; i < detailSettings.Count; i ++)
+        for (int i = 0; i < detailSettings.Count; i++)
         {
             System.Random rand = new System.Random(detailSettings[i].Seed + i);
+
+            if (worldChunk.HeightMap.MaxHeight < detailSettings[i].MinHeight || worldChunk.HeightMap.MinHeight > detailSettings[i].MaxHeight) { continue; }
 
             for (int k = 0; k < detailSettings[i].AmountPerChunk;)
             {
                 int x = rand.Next(0, heightMap.Size);
                 int y = rand.Next(0, heightMap.Size);
 
-                if(worldChunk.HeightMap.Values[x, y] < detailSettings[i].MinHeight || worldChunk.HeightMap.Values[x, y] > detailSettings[i].MaxHeight) { continue; }
-                
+                if (worldChunk.HeightMap.Values[x, y] < detailSettings[i].MinHeight || worldChunk.HeightMap.Values[x, y] > detailSettings[i].MaxHeight) { continue; }
+
                 GameObject.Instantiate(detailSettings[i].Detail,
-                    chunkTransform.TransformPoint(new Vector3(x - halfSize, worldChunk.HeightMap.Values[x,y], -y + halfSize)),
+                    chunkTransform.TransformPoint(new Vector3(x - halfSize, worldChunk.HeightMap.Values[x, y], -y + halfSize)),
                     new Quaternion(),
                     chunkTransform);
 
                 k++;
-                
+
             }
         }
     }

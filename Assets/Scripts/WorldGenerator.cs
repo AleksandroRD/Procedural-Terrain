@@ -31,6 +31,14 @@ public class WorldGenerator : MonoBehaviour
 
     public void Start()
     {
+        while (transform.childCount != 0)
+        {
+            foreach (Transform item in transform)
+            {
+                DestroyImmediate(item.gameObject);
+            }
+        }
+
         GenerateSeed();
         UpdateChuncks();
         UpdateWater();
@@ -42,7 +50,7 @@ public class WorldGenerator : MonoBehaviour
         int y = Mathf.RoundToInt(_player.position.z / _chunkSize);
 
         _playerPos = new(x, y);
-        
+
         if (_playerPos != _oldPlayerPos)
         {
             UpdateWater();
@@ -99,7 +107,7 @@ public class WorldGenerator : MonoBehaviour
             }
         }
     }
-    
+
     void GenerateSeed()
     {
         System.Random rand = _randomSeed ? new System.Random(Random.Range(0, 99999999)) : new System.Random(_seed);
@@ -119,7 +127,8 @@ public class WorldGenerator : MonoBehaviour
 
     public void PreviewMap()
     {
-        while(transform.childCount != 0)
+
+        while (transform.childCount != 0)
         {
             foreach (Transform item in transform)
             {
