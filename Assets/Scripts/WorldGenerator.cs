@@ -15,8 +15,6 @@ public class WorldGenerator : MonoBehaviour
     [SerializeField] private Transform _waterMesh;
 
     [Header("HeightMap")]
-    [SerializeField] private float _minHeight;
-    [SerializeField] private float _maxHeight;
     [SerializeField] private List<NoiseLayer> _noiseLayers;
 
     [Header("Visual Settings")]
@@ -98,8 +96,6 @@ public class WorldGenerator : MonoBehaviour
                     transform,
                     _noiseLayers,
                     _detailSettings,
-                    _minHeight,
-                    _maxHeight,
                     _terrainMaterial
                 );
 
