@@ -102,6 +102,16 @@ public class WorldGenerator : MonoBehaviour
                 _loadedChunks.Add(_generatedChunks[pos]);
             }
         }
+
+        for (int x = _playerPos.x - 1; x <= _playerPos.x + 1; x++)
+        {
+            for (int y = _playerPos.y - 1; y <= _playerPos.y + 1; y++)
+            {
+                Vector2Int pos = new Vector2Int(x, y);
+
+                _generatedChunks[pos].LoadCollision();
+            }
+        }
     }
 
     void GenerateSeed()

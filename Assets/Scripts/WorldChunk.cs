@@ -34,14 +34,13 @@ public class WorldChunk
         terrainMesh = MeshGenerator.GenerateMeshData(HeightMap.Values).CreateMesh();
         DetailGenerator.CreateDetails(this, detailSettings);
 
-        meshCollider.sharedMesh = terrainMesh;
         meshFilter.sharedMesh = terrainMesh;
     }
 
-    // public void Load()
-    // {
-
-    // }
+    public void LoadCollision()
+    {
+        meshCollider.sharedMesh = terrainMesh;
+    }
 
     // public bool IsLoaded()
     // {
