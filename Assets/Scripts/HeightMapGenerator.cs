@@ -12,15 +12,16 @@ public static class HeightMapGenerator
 
         for (int i = 0; i < noiseLayers.Count; i++)
         {
-            PerlinNoiseSettings noiseSettings = noiseLayers[i].NoiseSettings;
-            float[,] featuredNoise = Noise.GeneratePerlinNoise(size, noiseSettings, sampleCenter);
+            NoiseLayer noiseLayer = noiseLayers[i];
             float heightMultiplyer = noiseLayers[i].heightMultiplyer;
+
+            float[,] featuredNoise = Noise.GeneratePerlinNoise(size, noiseLayer.NoiseSettings, sampleCenter);
 
             for (int x = 0; x < size; x++)
             {
                 for (int y = 0; y < size; y++)
                 {
-                    values[x, y] = (values[x, y] + noiseLayers[i].NoiseInfluence.Evaluate(featuredNoise[x, y]) * heightMultiplyer) * 0.5f;
+                    values[x, y] = (values[x, y] + noiseLayer.NoiseInfluence.Evaluate(featuredNoise[x, y]) * heightMultiplyer) * 0.5f;
                 }
             }
         }
